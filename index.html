@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Any3DAvatar takes a single image of a human face as input and generates a high-fidelity 3D Gaussian head representation.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Any3DAvatar: Fast and High-Quality Full-Head 3D Avatar Generation from Any Single Portrait Image</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/style.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/script.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            Any3DAvatar: Fast and High-Quality Full-Head 3D Avatar Generation from Any Single Portrait Image
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/H-EZKmuYvRM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/weijielyu/FaceLift"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/wlyu/FaceLift"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-rocket"></i>
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+            </div>
+          </div>
+          <!-- Submission Status. -->
+          <div class="title-row">
+            <span class="title is-4 publication-venue">🌺 ACMMM 2026 🌺</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Full 3D head reconstruction from a single image is critical for virtual reality,
+            augmented reality, video games, and teleconferencing. Existing methods typically face a strong quality-efficiency 
+            trade-off: achieving high-fidelity results often requires complex multi-stage pipelines and heavy 
+            per-subject optimization, while faster feed-forward designs usually sacrifice geometric accuracy 
+            and fine appearance details. As a result, prior approaches can rarely deliver high generation 
+            quality and high efficiency at the same time. To address these challenges, we propose 
+            <strong>Any3DAvatar</strong>, a fast and high-quality single-image 3D Gaussian head avatar generation method. 
+            Our fastest reconstruction takes less than one second while preserving high-fidelity geometry and 
+            appearance details. (1) We design a feed-forward denoising network that directly decodes a 3D 
+            Gaussian point cloud from noisy tokens augmented with spatial positional information, enabling 
+            one-step reconstruction without sacrificing quality. (2) We adopt a multi-task learning scheme that 
+            optimizes geometry and appearance together, improving reconstruction accuracy and rendering 
+            quality. (3) We carefully construct a more diverse training dataset to mitigate selection bias and 
+            enhance fine-detail reconstruction across a wider range of subjects and conditions, and we split 
+            a subset from this dataset to build a small benchmark for evaluating full-head generation quality. 
+            Extensive experiments show that Any3DAvatar achieves superior rendering quality while 
+            maintaining fast inference, significantly outperforming prior 3D Gaussian-based head reconstruction methods.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Abstract. -->
+
+<!-- Paper Video. -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/lf0Gck9UOcU?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!--/ Paper Video. -->
+
+<!-- Method. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <div class="columns is-centered has-text-centered">
+            <img src="static/images/method.png" width="100%">
+          </div>
+          <p>
+            <strong>Overview of <i>FaceLift</i>.</strong> Given a single image of a human face as input, 
+            we train an image-conditioned, multi-view diffusion model to generate novel views covering 
+            the entire head. By reconstructing the input image and leveraging high-quality synthetic data, 
+            our multi-view latent diffusion model can hallucinate unseen views of the human head with 
+            high-fidelity and multi-view consistency. We then train a transformer-based reconstructor, 
+            which takes multi-view images and their camera poses as input and generates 3D Gaussian Splats 
+            to represent the human head.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- / Method. -->
+ 
+
+<!-- Results. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Results</h2>
+        <h3 class="title is-4 has-text-centered">Single Image to 3D Head</h3>
+        <h4 class="title is-5 has-text-centered">
+          <a href="./more_results.html">(Click to see more results)</a>
+        </h4>
+        <p>
+          <i>Any3DAvayar</i> lifts a single facial image to a detailed 3D reconstruction with preserved identity features.
+        </p>
+        <!-- row 1 -->
+        <h3 class="title is-4 has-text-centered"></h3>
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in.png" width="75%">
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in2.png" width="75%">
+              </h2>
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model2.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in3.png" width="75%">
+              </h2>
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model3.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+          </div>
+        </div>
+        <!-- row 2 -->
+        <h3 class="title is-4 has-text-centered"></h3>
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in4.png" width="75%">
+              </h2>
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model4.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in5.png" width="75%">
+              </h2>
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model5.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+            <div class="column">
+              <h2 style="text-align: center;">
+                <img src="./static/images/in6.png" width="75%">
+              </h2>
+              <video muted loop autoplay>
+                <!-- Your video here -->
+                <source src="" type="video/mp4">
+              </video>
+              <h2 style="text-align: center;">
+                <a
+                  href="splat/index.html?url=../static/plys/model6.ply">Open
+                  Interactive Viewer
+                </a>
+              </h2> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Results. -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page is adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
